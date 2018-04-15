@@ -1,0 +1,2 @@
+chcp 65001
+java -jar ..\my-mds2index.html-1.0.0.jar /D:/MyWorkspace/IdeaProjects/my-mds2indexhtml/target/dist/my-mds2index.html-exe-v1.0.0/config/config.yml /D:/MyWorkspace/IdeaProjects/my-mds2indexhtml/target/dist/my-mds2index.html-exe-v1.0.0/markdowns/ /D:/MyWorkspace/IdeaProjects/my-mds2indexhtml/target/dist/my-mds2index.html-exe-v1.0.0/template/index.html /D:/MyWorkspace/IdeaProjects/my-mds2indexhtml/target/dist/my-mds2index.html-exe-v1.0.0/output/index.html >> my-html2file.log 2>> my-html2file-error.log

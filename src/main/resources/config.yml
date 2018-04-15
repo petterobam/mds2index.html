@@ -1,0 +1,15 @@
+page:
+  title: 测试多个MarkDown文件生成单页面索引静态HTML文件
+  inc: 2018 petterObam
+  useDefault: true
+  mdBasePath:    # markdown文件的目录，默认为 classpath:markdowns/
+  tplPath:    # index模板文件的路径，默认为 classpath:template/index.html
+  markdowns:
+    - 01_getting_started.md
+    - 02_code_management_and_deployment.md 
+    - 03_file.md 
+    - 04_network.md 
+    - 05_process.md 
+    - 06_async_programming.md 
+    - 07_example.md
+  indexPath:  # 生成的index文件输出路径，默认 classpath:output/index.html
