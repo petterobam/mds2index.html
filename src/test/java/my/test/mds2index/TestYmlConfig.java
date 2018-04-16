@@ -34,7 +34,7 @@ public class TestYmlConfig {
     public void test3(){
         try {
             System.out.println("-----------覆盖默认配置测试-------------");
-            String testConfigPath = TestYmlConfig.class.getResource("/test-config.yml").getPath().toString();
+            String testConfigPath = Mds2indexConfig.class.getResource("/test-config.yml").getPath().toString();
             System.out.println("测试的配置文件地址：" + testConfigPath);
             Mds2indexConfig.loadConfig(testConfigPath);
             Map config = Mds2indexConfig.getYmlInfo();

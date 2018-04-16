@@ -2,6 +2,7 @@ package my.mds2index.config;
 
 import my.mds2index.utils.FilesUtils;
 import my.mds2index.utils.Md2HtmlUtils;
+import my.mds2index.utils.OsInfo;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileInputStream;
@@ -25,25 +26,40 @@ public class Mds2indexConfig {
      */
     public static void loadConfig(String ymlPath){
         try {
-            System.out.println("----------------------加载配置文件内容开始--------------------------");
+            if(Md2HtmlUtils.isBlank(ymlPath)) {
+                System.out.println("----------------------加载默认配置文件内容开始--------------------------");
+            }else {
+                System.out.println("----------------------加载自定义配置文件内容开始--------------------------");
+            }
             Yaml yaml = new Yaml();
             URL url = null;
+            FileInputStream inputStream = null;
             if(Md2HtmlUtils.isBlank(ymlPath)){
                 url = Mds2indexConfig.class.getClassLoader().getResource("config.yml");
             }else {
-                url = new URL("file://" + ymlPath);
+                inputStream = new FileInputStream(ymlPath);
             }
 
             if (url != null) {
                 currentConfigYmlPath = url.getPath();
-                System.out.println(">>>>>>>>>>>当前解析参照的配置文件：" + currentConfigYmlPath);
+                System.out.println(">>>>>>>>>>>初始化用默认配置文件,当前解析参照的配置文件路径：" + currentConfigYmlPath);
                 //获取test.yaml文件中的配置数据，然后将值转换为Map
                 ymlInfo = (Map) yaml.load(new FileInputStream(url.getFile()));
+                System.out.println(ymlInfo);
+            }else if(null != inputStream){
+                currentConfigYmlPath = ymlPath;
+                System.out.println(">>>>>>>>>>>自定义配置文件覆盖，当前解析参照的配置文件路径：" + currentConfigYmlPath);
+                //获取test.yaml文件中的配置数据，然后将值转换为Map
+                ymlInfo = (Map) yaml.load(inputStream);
                 System.out.println(ymlInfo);
             }
             System.out.println("----------------------加载配置文件内容结束--------------------------");
         } catch (Exception e) {
-            System.out.println("----------------------加载配置文件内容失败--------------------------");
+            if(Md2HtmlUtils.isBlank(ymlPath)) {
+                System.out.println("----------------------加载默认配置文件内容失败--------------------------");
+            }else {
+                System.out.println("----------------------加载自定义配置文件内容失败--------------------------");
+            }
             e.printStackTrace();
             ymlInfo = new HashMap();
         }
