@@ -41,8 +41,8 @@ echo "------------------------------------------------------------"
 :mds2indexhtml
 echo ">>>>>>>>>>>starting convert..."
 echo "#############################################################"
-echo "run java -jar %jar_path% %conf_path% %mds_path% %tpl_path% %out_path% >> my-html2file.log 2>> my-html2file-error.log"
-java -jar %jar_path% %conf_path% %mds_path% %tpl_path% %out_path% >> my-html2file.log 2>> my-html2file-error.log
+echo "run java -jar %jar_path% %conf_path% %mds_path% %tpl_path% %out_path% >> my-mds2index.html.log 2>> my-mds2index.html-error.log"
+java -jar %jar_path% %conf_path% %mds_path% %tpl_path% %out_path% >> my-mds2index.html.log 2>> my-mds2index.html-error.log
 echo "#############################################################"
 echo ">>>>>>>>>>>convert over!!"
 echo "------------------------------------------------------------"
