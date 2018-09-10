@@ -45,9 +45,9 @@ page:
 
 # 效果截图
 
-[![读书笔记示例-遇见未知自己](./docs/example1.png "读书笔记示例-遇见未知自己")](http://www.petterobam.cn/reader/index.html)
+[![读书笔记示例-遇见未知自己](./docs/example1.png "读书笔记示例-遇见未知自己")](http://www.petterobam.cn/reader/meet-unknowed-self/index.html "_blank")
 
-[![学习笔记示例](./docs/example2.png "学习笔记示例")](http://www.petterobam.cn/learner/index.html)
+[![学习笔记示例](./docs/example2.png "学习笔记示例")](http://www.petterobam.cn/learner/index.html "_blank")
 
 # TODO-LIST
 
