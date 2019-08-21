@@ -1,15 +1,15 @@
 package my.mds2index.config;
 
-import my.mds2index.utils.FilesUtils;
-import my.mds2index.utils.Md2HtmlUtils;
-import my.mds2index.utils.OsInfo;
-import org.yaml.snakeyaml.Yaml;
-
 import java.io.FileInputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.yaml.snakeyaml.Yaml;
+
+import my.mds2index.utils.FilesUtils;
+import my.mds2index.utils.Md2HtmlUtils;
 
 public class Mds2indexConfig {
 
@@ -22,21 +22,22 @@ public class Mds2indexConfig {
 
     /**
      * 从文件中载入生成markdown文件的配置
+     *
      * @param ymlPath
      */
-    public static void loadConfig(String ymlPath){
+    public static void loadConfig(String ymlPath) {
         try {
-            if(Md2HtmlUtils.isBlank(ymlPath)) {
+            if (Md2HtmlUtils.isBlank(ymlPath)) {
                 System.out.println("----------------------加载默认配置文件内容开始--------------------------");
-            }else {
+            } else {
                 System.out.println("----------------------加载自定义配置文件内容开始--------------------------");
             }
             Yaml yaml = new Yaml();
             URL url = null;
             FileInputStream inputStream = null;
-            if(Md2HtmlUtils.isBlank(ymlPath)){
+            if (Md2HtmlUtils.isBlank(ymlPath)) {
                 url = Mds2indexConfig.class.getClassLoader().getResource("config.yml");
-            }else {
+            } else {
                 inputStream = new FileInputStream(ymlPath);
             }
 
@@ -46,7 +47,7 @@ public class Mds2indexConfig {
                 //获取test.yaml文件中的配置数据，然后将值转换为Map
                 ymlInfo = (Map) yaml.load(new FileInputStream(url.getFile()));
                 System.out.println(ymlInfo);
-            }else if(null != inputStream){
+            } else if (null != inputStream) {
                 currentConfigYmlPath = ymlPath;
                 System.out.println(">>>>>>>>>>>自定义配置文件覆盖，当前解析参照的配置文件路径：" + currentConfigYmlPath);
                 //获取test.yaml文件中的配置数据，然后将值转换为Map
@@ -55,9 +56,9 @@ public class Mds2indexConfig {
             }
             System.out.println("----------------------加载配置文件内容结束--------------------------");
         } catch (Exception e) {
-            if(Md2HtmlUtils.isBlank(ymlPath)) {
+            if (Md2HtmlUtils.isBlank(ymlPath)) {
                 System.out.println("----------------------加载默认配置文件内容失败--------------------------");
-            }else {
+            } else {
                 System.out.println("----------------------加载自定义配置文件内容失败--------------------------");
             }
             e.printStackTrace();
@@ -67,9 +68,10 @@ public class Mds2indexConfig {
 
     /**
      * 获取当前解析
+     *
      * @return
      */
-    public static String getConfigFilePath(){
+    public static String getConfigFilePath() {
         return currentConfigYmlPath;
     }
 
@@ -86,6 +88,7 @@ public class Mds2indexConfig {
      * 根据键获取对象值
      *
      * @param keyStr
+     *
      * @return
      */
     public static <T> T get(String keyStr) {
@@ -123,9 +126,10 @@ public class Mds2indexConfig {
      * 根据键获取对象值
      *
      * @param keyStr
+     *
      * @return
      */
-    public static <T> void put(String keyStr,T value) {
+    public static <T> void put(String keyStr, T value) {
         try {
             String[] keyArr = keyStr.split("\\.");
             Object curObj = ymlInfo;
@@ -134,9 +138,9 @@ public class Mds2indexConfig {
                 if (null == curObj) {
                     return;
                 } else if (curObj instanceof Map) {
-                    if(count++ == keyArr.length){
-                        ((Map) curObj).put(key,value);
-                    }else {
+                    if (count++ == keyArr.length) {
+                        ((Map) curObj).put(key, value);
+                    } else {
                         curObj = ((Map) curObj).get(key);
                     }
                 } else {
@@ -158,7 +162,9 @@ public class Mds2indexConfig {
         if (Md2HtmlUtils.isBlank(mdBasePath)) {
             mdBasePath = Mds2indexConfig.class.getResource("/markdowns/").getPath().toString();
         }
-        if (mdBasePath == null) return null;
+        if (mdBasePath == null) {
+            return null;
+        }
         if (!mdBasePath.endsWith("/")) {
             mdBasePath = mdBasePath + "/";
         }
@@ -188,7 +194,7 @@ public class Mds2indexConfig {
         if (Md2HtmlUtils.isBlank(indexPath)) {
             indexPath = Mds2indexConfig.class.getResource("/output/").getPath().toString();
             return indexPath + "index.html";
-        }else {
+        } else {
             return indexPath;
         }
     }

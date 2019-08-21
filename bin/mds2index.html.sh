@@ -1,12 +1,12 @@
 #!/bin/bash
 # author:petterobam
-# url:https://github.com/petterobam/my-mds2index.html
-# Usage: sh my-mds2indexhtml.sh [渲染配置文件路径，默认 ../config/config.yml] [MarkDown文件夹路径，默认 ../markdowns] [index.html模板文件路径，默认 ../template/index.html] [输出文件路径，默认 ../output/index.html]
+# url:https://github.com/petterobam/mds2index.html
+# Usage: sh mds2indexhtml.sh [渲染配置文件路径，默认 ../config/config.yml] [MarkDown文件夹路径，默认 ../markdowns] [index.html模板文件路径，默认 ../template/index.html] [输出文件路径，默认 ../output/index.html]
 echo "#############################################################"
 echo ">>>>>>>>>>>接收准备参数"
 curr_path="`cd .. && pwd`"
 echo ">>>>>>>>>>>默认文件所在文件夹：${curr_path}"
-jar_path="$curr_path/my-mds2index.html-1.0.0.jar"
+jar_path="$curr_path/mds2index.html-1.0.0.jar"
 # 检查渲染配置文件默认路径
 conf_path="$curr_path/config/config.yml"
 # MarkDown文件夹默认路径
@@ -32,8 +32,8 @@ echo ">>>>>>>>>>>用于将MarkDown转化单索引页面的jar包路径：${jar_p
 echo "------------------------------------------------------------"
 echo ">>>>>>>>>>>开始转化..."
 echo "#############################################################"
-echo "执行：java -jar $jar_path $conf_path $mds_path $tpl_path $out_path > ./my-mds2index.html.out < /dev/null &"
-java -jar $jar_path $conf_path $mds_path $tpl_path $out_path > ./my-mds2index.html.out < /dev/null &
+echo "执行：java -jar $jar_path $conf_path $mds_path $tpl_path $out_path > ./mds2index.html.out < /dev/null &"
+java -jar $jar_path $conf_path $mds_path $tpl_path $out_path > ./mds2index.html.out < /dev/null &
 echo "#############################################################"
 echo ">>>>>>>>>>>转化结束！！"
 echo "------------------------------------------------------------"

@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>my-mds2index.html</groupId>
-    <artifactId>my-mds2index.html</artifactId>
+    <groupId>mds2index.html</groupId>
+    <artifactId>mds2index.html</artifactId>
     <version>1.0.0</version>
 
     <properties>
@@ -84,7 +84,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
-                    <finalName>my-mds2index.html-exe-v${project.version}</finalName>
+                    <finalName>mds2index.html-exe-v${project.version}</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
@@ -117,7 +117,7 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <finalName>my-mds2index.html-exe-v${project.version}</finalName>
+                    <finalName>mds2index.html-exe-v${project.version}</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>

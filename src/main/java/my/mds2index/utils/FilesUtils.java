@@ -29,6 +29,7 @@ public class FilesUtils {
      * read text file content, return string split by "\n"
      *
      * @param filePathAndName String file name with absolute path
+     *
      * @return String text content
      */
     public static String readAll(String filePathAndName) {
@@ -40,6 +41,7 @@ public class FilesUtils {
      *
      * @param filePathAndName String file name with absolute path
      * @param encoding        String file encoding
+     *
      * @return String text content
      */
     public static String readAll(String filePathAndName, String encoding) {
@@ -68,7 +70,9 @@ public class FilesUtils {
             string = "";
         } finally {
             try {
-                if (fileInputStream != null) fileInputStream.close();
+                if (fileInputStream != null) {
+                    fileInputStream.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -81,6 +85,7 @@ public class FilesUtils {
      *
      * @param filePathAndName String file name with absolute path
      * @param encoding        String file encoding
+     *
      * @return String text content of the line
      */
     public static String readLine(String filePathAndName, long lineIndex, String encoding) {
@@ -115,7 +120,9 @@ public class FilesUtils {
             return "";
         } finally {
             try {
-                if (fileInputStream != null) fileInputStream.close();
+                if (fileInputStream != null) {
+                    fileInputStream.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -127,6 +134,7 @@ public class FilesUtils {
      * read the first line content of text file
      *
      * @param filePathAndName String file name with absolute path
+     *
      * @return String text content of the first line
      */
     public static String readLine(String filePathAndName) {
@@ -137,6 +145,7 @@ public class FilesUtils {
      * read the specified line content of text file
      *
      * @param filePathAndName String file name with absolute path
+     *
      * @return String text content of the line
      */
     public static String readLine(String filePathAndName, long rowIndex) {
@@ -148,6 +157,7 @@ public class FilesUtils {
      *
      * @param filePathAndName String file path and name
      * @param fileContent     String file content
+     *
      * @return boolean flag to indicate create success or not
      */
     public static boolean newFile(String filePathAndName, String fileContent) {
@@ -160,6 +170,7 @@ public class FilesUtils {
      * @param filePathAndName String file path and name
      * @param fileContent     String file content
      * @param flag            boolean flag to indicate is append, true to append, false to create
+     *
      * @return boolean flag to indicate create success or not
      */
     public static boolean newFile(String filePathAndName, String fileContent, boolean flag) {
@@ -179,11 +190,13 @@ public class FilesUtils {
         }
         return false;
     }
+
     /**
      * create file
      *
      * @param filePathAndName String file path and name
      * @param fileContent     String file content
+     *
      * @return boolean flag to indicate create success or not
      */
     public static boolean newFileUtf8(String filePathAndName, String fileContent) {
@@ -210,6 +223,7 @@ public class FilesUtils {
      * @param filePathAndName String file path and name
      * @param fileContent     String file content
      * @param encoding        the specified encoding, such as GBK or UTF-8
+     *
      * @return boolean flag to indicate create success or not
      */
     public static boolean newFile(String filePathAndName, String fileContent, String encoding) {
@@ -249,6 +263,7 @@ public class FilesUtils {
      * create folder
      *
      * @param folderPath String folder path
+     *
      * @return String created folder path
      */
     public static String newFolder(String folderPath) {
@@ -307,9 +322,11 @@ public class FilesUtils {
         }
         if (file.getAbsolutePath().equalsIgnoreCase("/usr") || file.getAbsolutePath().equalsIgnoreCase("/opt")
                 || file.getAbsolutePath().equalsIgnoreCase("/bin") || file.getAbsolutePath().equalsIgnoreCase("/sbin")
-                || file.getAbsolutePath().equalsIgnoreCase("/etc") || file.getAbsolutePath().equalsIgnoreCase("/selinux")
+                || file.getAbsolutePath().equalsIgnoreCase("/etc") || file.getAbsolutePath()
+                .equalsIgnoreCase("/selinux")
                 || file.getAbsolutePath().equalsIgnoreCase("/sys") || file.getAbsolutePath().equalsIgnoreCase("/var")
-                || file.getAbsolutePath().equalsIgnoreCase("/home") || file.getAbsolutePath().equalsIgnoreCase("/net")) {
+                || file.getAbsolutePath().equalsIgnoreCase("/home") || file.getAbsolutePath()
+                .equalsIgnoreCase("/net")) {
             System.out.println("this is a root directory, you cannot delete all files in it!");
             System.out.println("please change the path!");
             return;
@@ -366,10 +383,12 @@ public class FilesUtils {
             e.printStackTrace();
         } finally {
             try {
-                if (fileOutputStream != null)
+                if (fileOutputStream != null) {
                     fileOutputStream.close();
-                if (inputStream != null)
+                }
+                if (inputStream != null) {
                     inputStream.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -445,6 +464,7 @@ public class FilesUtils {
      *
      * @param folderPath the path to create multi-level directory
      * @param paths      directories, split by '|'
+     *
      * @return String the created directory path
      */
     public static String createFolders(String folderPath, String paths) {
@@ -471,18 +491,20 @@ public class FilesUtils {
 
     /**
      * 检查文件夹并创建
+     *
      * @param absoultOutputFilePath
+     *
      * @return
      */
-    public static boolean checkFolderAndCreate(String absoultOutputFilePath){
+    public static boolean checkFolderAndCreate(String absoultOutputFilePath) {
         int index = absoultOutputFilePath.lastIndexOf("/");
-        if(index > 0) {
-            String dirPath = absoultOutputFilePath.substring(0,index);
+        if (index > 0) {
+            String dirPath = absoultOutputFilePath.substring(0, index);
             File file = new File(dirPath);
             int i = 0;
             while (!file.exists()) {
                 file.mkdirs();
-                if(i++ > 100){
+                if (i++ > 100) {
                     return false;
                 }
             }
@@ -494,6 +516,7 @@ public class FilesUtils {
      * create multi-level directory
      *
      * @param folderPath the multi-level directory to create
+     *
      * @return String the created directory path
      */
     public static String createFolders(String folderPath) {
@@ -515,6 +538,7 @@ public class FilesUtils {
      * check if the specified file exists
      *
      * @param fileName the name of the file to be checked
+     *
      * @return boolean true if exits, false if not
      */
     public static boolean isFileExist(String fileName) {
@@ -525,6 +549,7 @@ public class FilesUtils {
      * get all files in a folder
      *
      * @param path String folder path
+     *
      * @return List<File>
      */
     public static List<File> getAllFiles(String path) {
@@ -560,6 +585,7 @@ public class FilesUtils {
      *
      * @param path   String folder path
      * @param suffix String the specified suffix
+     *
      * @return List<File>
      */
     public static List<File> getAllFiles(String path, String suffix) {
@@ -580,9 +606,9 @@ public class FilesUtils {
                 tempFile = new File(path + File.separator + fileName);
             }
             if (tempFile.isFile()) {
-                if (suffix == null || "".equals(suffix))
+                if (suffix == null || "".equals(suffix)) {
                     fileList.add(tempFile);
-                else {
+                } else {
                     String filePath = tempFile.getAbsolutePath();
                     if (!suffix.equals("")) {
                         int beginIndex = filePath.lastIndexOf("."); // the last '.' index before suffix
@@ -611,6 +637,7 @@ public class FilesUtils {
      * @param path    String folder path
      * @param suffix  String the specified suffix
      * @param isDepth boolean is need to scan all subdirectories
+     *
      * @return List<String>
      */
     public static List<String> getAllFileNames(String path, String suffix, boolean isDepth) {
@@ -654,6 +681,7 @@ public class FilesUtils {
      * get all file names in a folder
      *
      * @param path String folder path
+     *
      * @return List<String>
      */
     public static List<String> getAllFileNames(String path) {
@@ -684,6 +712,7 @@ public class FilesUtils {
      * get all file names in a folder
      *
      * @param path String folder path
+     *
      * @return Map<String, String>
      */
     public static Map<String, String> getAllFileNamesByMap(String path) {
@@ -714,6 +743,7 @@ public class FilesUtils {
      * get all file names in a folder
      *
      * @param path String folder path
+     *
      * @return String[]
      */
     public static String[] getAllFileNamesByPath(String path) {
@@ -744,26 +774,30 @@ public class FilesUtils {
      * remove suffix of a file
      *
      * @param fileName file name
+     *
      * @return String file name without suffix
      */
     public static String getNameNoSuffix(String fileName) {
-        if (fileName.lastIndexOf(".") >= 0)
+        if (fileName.lastIndexOf(".") >= 0) {
             return fileName.substring(0, fileName.lastIndexOf("."));
-        else
+        } else {
             return fileName;
+        }
     }
 
     /**
      * return file name with suffix
      *
      * @param fileName file path and name
+     *
      * @return String file name with suffix
      */
     public static String getFileName(String fileName) {
         String shortFileName = fileName;
         shortFileName = shortFileName.replace("\\", "/");
-        if (shortFileName.contains("/"))
+        if (shortFileName.contains("/")) {
             shortFileName = shortFileName.substring(shortFileName.lastIndexOf("/") + 1, shortFileName.length());
+        }
         return shortFileName;
     }
 
@@ -771,14 +805,16 @@ public class FilesUtils {
      * check if directory exists, if not exist, create it, return false if create failed
      *
      * @param path folder path
+     *
      * @return boolean
      */
     public static boolean isExist(String path) {
         File file = new File(path);
         if (!file.exists()) {
             boolean isSuccess = file.mkdir();
-            if (!isSuccess)
+            if (!isSuccess) {
                 createFolders(path);
+            }
             return isSuccess;
         } else {
             return true;
@@ -789,6 +825,7 @@ public class FilesUtils {
      * check if directory exists
      *
      * @param path folder path
+     *
      * @return boolean
      */
     public static boolean isExistNotCreate(String path) {
@@ -802,6 +839,7 @@ public class FilesUtils {
      * @param fileName file name
      * @param srcPath  source path
      * @param dstPath  destination path
+     *
      * @return boolean
      */
     public boolean copyTheFile(String fileName, String srcPath, String dstPath) {
@@ -833,10 +871,12 @@ public class FilesUtils {
             e.printStackTrace();
         } finally {
             try {
-                if (fileOutputStream != null)
+                if (fileOutputStream != null) {
                     fileOutputStream.close();
-                if (inputStream != null)
+                }
+                if (inputStream != null) {
                     inputStream.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -850,6 +890,7 @@ public class FilesUtils {
      * @param fileName file name
      * @param srcPath  source path
      * @param dstPath  destination path
+     *
      * @return boolean
      */
     public boolean moveTheFile(String fileName, String srcPath, String dstPath) {
@@ -881,16 +922,19 @@ public class FilesUtils {
             e.printStackTrace();
         } finally {
             try {
-                if (fileOutputStream != null)
+                if (fileOutputStream != null) {
                     fileOutputStream.close();
-                if (inputStream != null)
+                }
+                if (inputStream != null) {
                     inputStream.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
             File deleteFile = new File(srcPath + "/" + fileName);
-            if (isSucceed)
+            if (isSucceed) {
                 isSucceed = deleteFile.delete();
+            }
         }
         return isSucceed;
     }

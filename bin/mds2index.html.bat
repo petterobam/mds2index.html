@@ -1,7 +1,7 @@
 @Echo Off
 :: author:petterobam
-:: url:https://github.com/petterobam/my-mds2index.html
-@Title my-mds2indexhtml@petterobam
+:: url:https://github.com/petterobam/mds2index.html
+@Title mds2indexhtml@petterobam
 Rem CenterSelf
 :config_load
 echo "#############################################################"
@@ -12,7 +12,7 @@ Set curr_path=%~dp0
 Set curr_path=%curr_path:~0,-4%
 echo ">>>>>>>>>>>curr_path %curr_path%"
 :: jar File Path
-set jar_path=%curr_path%my-mds2index.html-1.0.0.jar
+set jar_path=%curr_path%mds2index.html-1.0.0.jar
 :: replace \ to /
 Set curr_path=/%curr_path:\=/%
 :: Config File Path
@@ -41,8 +41,8 @@ echo "------------------------------------------------------------"
 :mds2indexhtml
 echo ">>>>>>>>>>>starting convert..."
 echo "#############################################################"
-echo "run java -jar %jar_path% %conf_path% %mds_path% %tpl_path% %out_path% >> my-mds2index.html.log 2>> my-mds2index.html-error.log"
-java -jar %jar_path% %conf_path% %mds_path% %tpl_path% %out_path% >> my-mds2index.html.log 2>> my-mds2index.html-error.log
+echo "run java -jar %jar_path% %conf_path% %mds_path% %tpl_path% %out_path% >> mds2index.html.log 2>> mds2index.html-error.log"
+java -jar %jar_path% %conf_path% %mds_path% %tpl_path% %out_path% >> mds2index.html.log 2>> mds2index.html-error.log
 echo "#############################################################"
 echo ">>>>>>>>>>>convert over!!"
 echo "------------------------------------------------------------"
