@@ -200,7 +200,7 @@ public class Mds2indexConfig {
     }
 
     /**
-     * 根据配置获取markdown文件转换后的htrml
+     * 根据配置获取markdown文件转换后的html
      *
      * @return
      */
