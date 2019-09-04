@@ -172,7 +172,7 @@ public class Mds2indexConfig {
     }
 
     /**
-     * 获取markdown所在的目录
+     * 获取html模板所在的目录
      *
      * @return
      */

@@ -18,23 +18,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 
-class Dir {
-	private TreeSet<Dir> dir;
-	private TreeSet<File> file;
-	public TreeSet<Dir> getDir() {
-		return dir;
-	}
-	public void setDir(TreeSet<Dir> dir) {
-		this.dir = dir;
-	}
-	public TreeSet<File> getFile() {
-		return file;
-	}
-	public void setFile(TreeSet<File> file) {
-		this.file = file;
-	}
-
-}
+import my.mds2index.config.Dir;
 
 /**
  * FilesUtil
@@ -1020,23 +1004,79 @@ public class FilesUtils {
 	 * @return: Dir      
 	 * @throws
 	 */
-	public static Dir getAllDir(File file) {
+	public static Dir getAllDirName(File file,int i) {
+		//根路径
 		Dir dir = new Dir();
-		File[] files = file.listFiles();
-		for(File file1:files) {
-			TreeSet<Dir> listDir = new TreeSet<Dir>();
-			TreeSet<File> listFile = new TreeSet<File>();
-			if(file1.isDirectory()) {
-				getAllDir(file1);//进行递归
-			}else {
-			  listFile.add(file1);
+		i = i+1;
+		dir.setFileType(0);
+		//设置文件夹的层级，0表示根路径
+		dir.setHierarchy(i-1);
+		
+		List<Dir> listDir = new ArrayList<Dir>();
+		String path = file.getPath();
+		if(!file.exists()) {
+			dir.setState(1);
+			return dir;
+		}else {
+			dir.setDirName(file.getName());
+			dir.setPath(path);	
+			File[] files = file.listFiles();
+			
+			if(files.length>0) {
+				for(File childen:files) {
+					Dir dir1 = new Dir();
+					try {
+						dir1.setDirName(childen.getName());
+						dir1.setPath(childen.getPath());
+						dir1.setHierarchy(i);
+						if(childen.isDirectory()) {
+							dir1 = getAllDirName(childen,i);
+						}else {
+							dir1.setFileType(1);
+						}
+						listDir.add(dir1);
+					}catch(Exception e) {
+						continue;
+					}
+					
+				}
+				dir.setChilden(listDir);
+				
 			}
 			
-			//dir.setDir();
-			return dir;
 		}
 		return dir;	
+	}	
+	
+	/**
+	 * 获取层级目录文件名（打印输出效果）
+	 * @Title: getDirName   
+	 * @Description: TODO()   
+	 * @param: @param dir      
+	 * @return: void      
+	 * @throws
+	 */
+	public static void getDirName(Dir dir){
+		System.out.println("文件夹路径:---------"+dir.getPath());
+		System.out.println("文件夹名称:---------"+dir.getDirName());
+		System.out.println("文件夹层级：---------"+dir.getHierarchy());
+		System.out.println("文件夹类型:---------"+dir.getFileType());
+		for(Dir childen : dir.getChilden()){
+			try {
+				// childen.getPath();
+				   if(childen.getFileType()==0) {
+					   getDirName(childen);
+				   }else {
+					   System.out.println("文件路径++++++++++++"+childen.getPath());
+					   System.out.println("文件路径++++++++++++"+childen.getDirName());
+					   System.out.println("文件层级++++++++++++"+childen.getHierarchy());
+					   System.out.println("文件夹类型:++++++++++"+childen.getFileType());
+				   }
+			}catch(Exception e) {
+				continue;
+			}
+		  
+		}
+		
 	}
-	
-	
 }
