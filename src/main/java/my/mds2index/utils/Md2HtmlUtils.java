@@ -27,13 +27,43 @@ public class Md2HtmlUtils {
     }
 
     /**
-     * 清除中内容中0个或只有一个字的标签对  如 <LL><XX>汉</XX><FF>字</FF></LL>
+     * 解析html模板，进行数据替换
      *
      * @param htmlText
      *
      * @return
      */
     public static String parsePageByParam(String htmlText) {
+        try {
+            if (isBlank(htmlText)) {
+                return "";
+            }
+            String regExp = "##\\s*(.+)\\s*##";
+
+            Matcher paramMatcher = Pattern.compile(regExp).matcher(htmlText);
+            StringBuffer sb = new StringBuffer();
+            while (paramMatcher.find()) {
+                String paramKey = paramMatcher.group(1);
+                String paramValue = Mds2indexConfig.get(paramKey);
+                paramValue = escapeExprSpecialWord(paramValue);
+                paramMatcher.appendReplacement(sb, toString(paramValue));
+            }
+            paramMatcher.appendTail(sb);
+            return sb.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return htmlText;
+        }
+    }
+    
+    /**
+     * 解析html模板，进行数据替换
+     *
+     * @param htmlText
+     *
+     * @return
+     */
+    public static String parsePageByParamSingleFile(String htmlText) {
         try {
             if (isBlank(htmlText)) {
                 return "";

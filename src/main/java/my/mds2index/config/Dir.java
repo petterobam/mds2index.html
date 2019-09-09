@@ -2,8 +2,11 @@ package my.mds2index.config;
 
 import java.util.List;
 
+/*
+ * 文件夹层级
+ */
 public class Dir {
-	private List<Dir> childen; //文件夹中的文件夹或文件
+	private List<Dir> children; //文件夹中的文件夹或文件
 	//private TreeSet<String> file;
 	private String dirName;//文件夹或文件名
 	/**
@@ -21,12 +24,12 @@ public class Dir {
 	
 
 	
-	public List<Dir> getChilden() {
-		return childen;
+	public List<Dir> getChildren() {
+		return children;
 	}
 
-	public void setChilden(List<Dir> childen) {
-		this.childen = childen;
+	public void setChildren(List<Dir> children) {
+		this.children = children;
 	}
 
 	public String getDirName() {
@@ -82,7 +85,7 @@ public class Dir {
 	
 	@Override
 	public String toString() {
-		return "Dir [childen=" + childen + ", dirName=" + dirName + ", fileType=" + fileType + ", permissions="
+		return "Dir [children=" + children + ", dirName=" + dirName + ", fileType=" + fileType + ", permissions="
 				+ permissions + ", path=" + path + ", state=" + state + ", hierarchy=" + hierarchy + "]";
 	}
 

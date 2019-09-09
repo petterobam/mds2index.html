@@ -16,8 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.TreeSet;
-
 import my.mds2index.config.Dir;
 
 /**
@@ -68,6 +66,8 @@ public class FilesUtils {
 				while ((data = bufferedReader.readLine()) != null) {
 					stringBuilder.append(data).append("\n");
 				}
+				bufferedReader.close();
+				
 			} catch (Exception e) {
 				return "";
 			}
@@ -120,6 +120,8 @@ public class FilesUtils {
 						i++;
 					}
 				}
+				//进行流的关闭
+				bufferedReader.close();
 			} catch (Exception e) {
 				return "";
 			}
@@ -227,6 +229,8 @@ public class FilesUtils {
 			OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
 			osw.write(fileContent);
 			osw.flush();
+			//进行流的关闭
+			osw.close();
 			return true;
 		} catch (Exception e) {
 			System.out.println("create file failed");
@@ -1040,7 +1044,7 @@ public class FilesUtils {
 					}
 					
 				}
-				dir.setChilden(listDir);
+				dir.setChildren(listDir);
 				
 			}
 			
@@ -1061,7 +1065,7 @@ public class FilesUtils {
 		System.out.println("文件夹名称:---------"+dir.getDirName());
 		System.out.println("文件夹层级：---------"+dir.getHierarchy());
 		System.out.println("文件夹类型:---------"+dir.getFileType());
-		for(Dir childen : dir.getChilden()){
+		for(Dir childen : dir.getChildren()){
 			try {
 				// childen.getPath();
 				   if(childen.getFileType()==0) {

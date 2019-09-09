@@ -1,6 +1,7 @@
 package my.mds2index.config;
 
 import java.io.FileInputStream;
+import java.lang.annotation.Documented;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -96,6 +97,8 @@ public class Mds2indexConfig {
             return (T) getPageArticle();
         } else if ("page.nav".equals(keyStr)) {
 
+        } else if("nav.date".equals(keyStr)) {
+        	
         }
         if (keyStr == null || keyStr.trim().length() == 0) {
             return null;
@@ -121,6 +124,50 @@ public class Mds2indexConfig {
         }
         return null;
     }
+    
+    
+    
+    /**
+     * 单个文件生成单个文件根据键获取对象值
+     *
+     * @param keyStr
+     *
+     * @return
+     */
+    public static <T> T getSingleFile(String keyStr,String filePath,String rootPath) {
+        if ("page.article".equals(keyStr)) {
+            return (T) getPageArticleSingleFile(filePath);
+        } else if ("page.nav".equals(keyStr)) {
+
+        } else if("page.navData".equals(keyStr)) {
+        	//返回json数据作为目录信息JSON
+        	return (T) getMenuJsonString(filePath,rootPath);	
+        }
+        if (keyStr == null || keyStr.trim().length() == 0) {
+            return null;
+        }
+        try {
+            String[] keyArr = keyStr.split("\\.");
+            Object curObj = ymlInfo;
+            for (String key : keyArr) {
+                if (null == curObj) {
+                    return null;
+                } else if (curObj instanceof Map) {
+                    curObj = ((Map) curObj).get(key);
+                } else {
+                    return null;
+                }
+            }
+            if (null != curObj) {
+                return (T) curObj;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
 
     /**
      * 根据键获取对象值
@@ -183,9 +230,26 @@ public class Mds2indexConfig {
         }
         return tplPath;
     }
+    
+    
+    /**
+     * 获取html模板所在的目录
+     *
+     * @return
+     */
+    public static String getMenuTplPath() {
+        String tplPath = Mds2indexConfig.get("page.tplPath");
+        if (Md2HtmlUtils.isBlank(tplPath)) {
+            tplPath = Mds2indexConfig.class.getResource("/template/index1.html").getPath().toString();
+        }
+        return tplPath;
+    }
+    
+    
+    
 
     /**
-     * 获取markdown所在的目录
+     * 获取markdown文件要生成的文件所在的目录
      *
      * @return
      */
@@ -225,6 +289,35 @@ public class Mds2indexConfig {
         }
         return articleSb.toString();
     }
+    
+    
+    
+    /**
+     * 根据项目路径获取markdown文件转换后的html字符串
+     *
+     * @return
+     */
+	public static String getPageArticleSingleFile(String filePath) {
+		StringBuffer articleSb = new StringBuffer("");
+		System.out.println("----------------------[批量转化markdown文件开始]---------------------------------");
+		String mdPathAndName = filePath;
+		System.out.println( "正在读取并转化文件[" + mdPathAndName + "]...");
+		String mdStr = FilesUtils.readAll(mdPathAndName);
+		System.out.println("读取文件[" + mdPathAndName + "]结束...");
+		String mdHtml = Md2HtmlUtils.parseHtml(mdStr);
+		System.out.println("转化文件[" + mdPathAndName + "]结束...");
+		articleSb.append(mdHtml);
+		System.out.println("----------------------[批量转化markdown文件结束]---------------------------------");
+		return articleSb.toString();
+	}
+    
+    /**
+     * 返回json对象字符串
+     */
+   public static String getMenuJsonString(String filePath,String rootPath) {
+	  
+	  return null;
+   }
 
     /**
      * 根据配置获取时间
