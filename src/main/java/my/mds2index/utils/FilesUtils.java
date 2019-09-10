@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import my.mds2index.config.Dir;
+import my.mds2index.config.Mds2indexConfig;
 
 /**
  * FilesUtil
@@ -1008,13 +1009,11 @@ public class FilesUtils {
 	 * @return: Dir      
 	 * @throws
 	 */
-	public static Dir getAllDirName(File file,int i) {
+	public static Dir getAllDirName(File file) {
 		//根路径
 		Dir dir = new Dir();
-		i = i+1;
 		dir.setFileType(0);
 		//设置文件夹的层级，0表示根路径
-		dir.setHierarchy(i-1);
 		
 		List<Dir> listDir = new ArrayList<Dir>();
 		String path = file.getPath();
@@ -1027,14 +1026,13 @@ public class FilesUtils {
 			File[] files = file.listFiles();
 			
 			if(files.length>0) {
-				for(File childen:files) {
+				for(File children:files) {
 					Dir dir1 = new Dir();
 					try {
-						dir1.setDirName(childen.getName());
-						dir1.setPath(childen.getPath());
-						dir1.setHierarchy(i);
-						if(childen.isDirectory()) {
-							dir1 = getAllDirName(childen,i);
+						dir1.setDirName(children.getName());
+						dir1.setPath(children.getPath());
+						if(children.isDirectory()) {
+							dir1 = getAllDirName(children);
 						}else {
 							dir1.setFileType(1);
 						}
@@ -1065,16 +1063,16 @@ public class FilesUtils {
 		System.out.println("文件夹名称:---------"+dir.getDirName());
 		System.out.println("文件夹层级：---------"+dir.getHierarchy());
 		System.out.println("文件夹类型:---------"+dir.getFileType());
-		for(Dir childen : dir.getChildren()){
+		for(Dir children : dir.getChildren()){
 			try {
-				// childen.getPath();
-				   if(childen.getFileType()==0) {
-					   getDirName(childen);
+				// children.getPath();
+				   if(children.getFileType()==0) {
+					   getDirName(children);
 				   }else {
-					   System.out.println("文件路径++++++++++++"+childen.getPath());
-					   System.out.println("文件路径++++++++++++"+childen.getDirName());
-					   System.out.println("文件层级++++++++++++"+childen.getHierarchy());
-					   System.out.println("文件夹类型:++++++++++"+childen.getFileType());
+					   System.out.println("文件路径++++++++++++"+children.getPath());
+					   System.out.println("文件路径++++++++++++"+children.getDirName());
+					   System.out.println("文件层级++++++++++++"+children.getHierarchy());
+					   System.out.println("文件夹类型:++++++++++"+children.getFileType());
 				   }
 			}catch(Exception e) {
 				continue;
@@ -1083,4 +1081,86 @@ public class FilesUtils {
 		}
 		
 	}
+	
+	/**
+	 * 根据文件路径，根路径和html文件内容生成html文件
+	 * @Title: creatHtmlByPath   
+	 * @Description: TODO()   
+	 * @param: @param filePath
+	 * @param: @param rootPath
+	 * @param: @param tplStr      
+	 * @return: void      
+	 * @throws
+	 */
+	private  void creatHtmlByPath(String filePath,String rootPath,String tplStr) {
+	        String mdIndexHtml = Md2HtmlUtils.parsePageByParamSingleFile(tplStr,filePath,rootPath);
+	        System.out.println(">>>>>>>>>>>>>>>>>>>>解析渲染为带索引的单页面index.html内容结束！！！");
+	        System.out.println("########################################################################");
+	        System.out.println(mdIndexHtml);
+	        System.out.println("########################################################################");
+	        String htmlPath = "";
+	        System.out.println(">>>>>>>>>>>>>>>>>>>>保存生成index.html文件...");
+	        System.out.println("生成文件路径：" + htmlPath);
+	        FilesUtils.newFileUtf8(htmlPath, mdIndexHtml);
+	        System.out.println(">>>>>>>>>>>>>>>>>>>>保存生成index.html文件结束！！！");
+	        System.out.println("==================结束执行markdown文档转化为带索引的单页面index.html!!==================");	
+	}
+	
+	/**
+	 * 使用递归根据md根路径和html根路径生成html文件
+	 * @Title: createHtmlByRootPath   
+	 * @Description: TODO(根据路径信息)   
+	 * @param: @param rootPath
+	 * @param: @param filePath
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws
+	 */
+	private static boolean createHtml(String rootPath,String filePath) { 
+		boolean flag = true;
+		Dir dir = new Dir();
+		File file = new File(rootPath);
+		if(file.exists()&&file.isDirectory()) {
+			File[] files = file.listFiles();
+			for(File fileChildren : files) {//遍历文件夹下的文件和文件夹
+				if(fileChildren.isFile()) {//如果得到的是文件，则生成HTML文件和对应的json数据
+					
+					
+					
+				}
+			}
+			
+			
+		}else {
+			flag = false;
+			System.out.println("转换文件"+filePath+"出错");
+		}
+		
+		
+		return flag;
+		
+	}
+	
+	/**
+	 * 根据md根路径生成html
+	 * @Title: createHtmlByRootPath   
+	 * @Description: TODO()   
+	 * @param: @param rootPath
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws
+	 */
+	public static boolean createHtmlByRootPath(String rootPath) {
+		//拼接html存放根目录
+		String filePath = rootPath + File.separator + "html";
+		//调用生成html方法，生成文件
+		return createHtml(rootPath,filePath); 
+		
+	}
+	
+	
+	
+	
+	
+	
 }

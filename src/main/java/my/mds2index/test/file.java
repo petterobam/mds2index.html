@@ -10,7 +10,7 @@ import my.mds2index.utils.FilesUtils;
 public class file {
 	public static void main(String[] args) {
 		//List<String> list = FilesUtils.getAllFileNames("E:\\gitregistry");
-		Dir dir = FilesUtils.getAllDirName(new File("E:\\gitregistry"),0);
+		Dir dir = FilesUtils.getAllDirName(new File("E:\\gitregistry"));
 		JSONObject jsonObj = (JSONObject) JSONObject.toJSON(dir);
 		System.out.println(jsonObj);
 		System.out.println(jsonObj.toJSONString());

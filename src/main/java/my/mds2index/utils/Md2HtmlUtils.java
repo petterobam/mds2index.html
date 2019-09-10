@@ -63,7 +63,7 @@ public class Md2HtmlUtils {
      *
      * @return
      */
-    public static String parsePageByParamSingleFile(String htmlText) {
+    public static String parsePageByParamSingleFile(String htmlText,String filePath,String rootPath) {
         try {
             if (isBlank(htmlText)) {
                 return "";
@@ -74,7 +74,7 @@ public class Md2HtmlUtils {
             StringBuffer sb = new StringBuffer();
             while (paramMatcher.find()) {
                 String paramKey = paramMatcher.group(1);
-                String paramValue = Mds2indexConfig.get(paramKey);
+                String paramValue = Mds2indexConfig.getSingleFile(paramKey, filePath, rootPath);
                 paramValue = escapeExprSpecialWord(paramValue);
                 paramMatcher.appendReplacement(sb, toString(paramValue));
             }
