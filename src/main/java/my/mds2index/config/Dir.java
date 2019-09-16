@@ -1,29 +1,28 @@
 package my.mds2index.config;
 
+import java.util.Comparator;
 import java.util.List;
 
 /*
  * 文件夹层级
  */
-public class Dir {
-	private List<Dir> children; //文件夹中的文件夹或文件
-	//private TreeSet<String> file;
-	private String dirName;//文件夹或文件名
+public class Dir implements Comparable<Dir> {
+	private List<Dir> children; // 文件夹中的文件夹或文件
+	// private TreeSet<String> file;
+	private String dirName;// 文件夹或文件名
 	/**
 	 * 文件类型 表示文件夹或文件名(0表示问价夹，1表示文件,其他表示不存在)
 	 */
-	private int fileType=2;//文件类型
-	
-	private int permissions;//文件权限
-	
-	private String path;//文件路径
-	
-	private int state = 0; //路径状态是否存在(存在为0，不存在为1)
-	
-	private int hierarchy = -1;
-	
+	private int fileType = 2;// 文件类型
 
-	
+	private int permissions;// 文件权限
+
+	private String path;// 文件路径
+
+	private int state = 0; // 路径状态是否存在(存在为0，不存在为1)
+
+	private int hierarchy = -1;
+
 	public List<Dir> getChildren() {
 		return children;
 	}
@@ -72,8 +71,6 @@ public class Dir {
 		this.state = state;
 	}
 
-	
-
 	public int getHierarchy() {
 		return hierarchy;
 	}
@@ -82,13 +79,20 @@ public class Dir {
 		this.hierarchy = hierarchy;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "Dir [children=" + children + ", dirName=" + dirName + ", fileType=" + fileType + ", permissions="
 				+ permissions + ", path=" + path + ", state=" + state + ", hierarchy=" + hierarchy + "]";
 	}
 
-	
-	
+	//对文件目录进行排序
+	@Override
+	public int compareTo(Dir o) {
+		int i = this.getDirName().compareTo(o.getDirName());
+		if (i == 0) {
+			i = -1;
+		}
+		return i;
+	}
+
 }

@@ -11,7 +11,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -1104,7 +1106,7 @@ public class FilesUtils {
 
 						// 生成的html文件存放目录
 						String childHtmlFilePath = filePath + File.separator + fileChildren.getName().replace(".md", ".html");
-						System.out.println("生成文件路径");
+						System.out.println("生成文件路径" + childHtmlFilePath);
 						newFileUtf8(childHtmlFilePath, mdIndexHtml);
 					}
 				} else {//
@@ -1131,11 +1133,34 @@ public class FilesUtils {
 	public static boolean createHtmlByRootPath(String rootPath) {
 		// 拼接html存放根目录
 		rootPath = new File(rootPath).getPath();
+		if(rootPath.endsWith(File.separator)) {
+			
+		}else {
+			
+		}
 		String filePath = rootPath + "html";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String dstPath = rootPath + "html_back" + sdf.format(new Date());
+		//备份原始目录
+		FilesUtils.copyFolder(filePath, dstPath);
+		//删除原始文件
+		FilesUtils.delFolder(filePath);
+		
 		//FilesUtils.newFolder(filePath);
 		// 调用生成html方法，生成文件
 		return createHtml(rootPath, filePath,rootPath);
 
+	}
+	
+	public static void cleanSortNumber(List<Dir> list) {
+		for(Dir dir : list) {
+			try {
+				String dirName = dir.getDirName().split("_")[1];
+				dir.setDirName(dirName);	
+			}catch(Exception e){
+				continue;
+			}
+		}
 	}
 
 }

@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.lang.annotation.Documented;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -328,6 +330,7 @@ public class Mds2indexConfig {
 		
 		
 		Dir dir = getMenuJsonDir(new File(rootPath),prefixPath);
+		//对目录进行排序
 		JSONObject jsonObj = (JSONObject) JSONObject.toJSON(dir);
 		
 		
@@ -340,6 +343,7 @@ public class Mds2indexConfig {
 		Dir dir = new Dir();
 		dir.setDirName(file.getName());
 		dir.setFileType(0);
+		dir.setPath("#");
 
 		List<Dir> listDir = new ArrayList<Dir>();
 		//String path = prefix + "#";
@@ -356,9 +360,16 @@ public class Mds2indexConfig {
 					try {
 						
 						if (children.isDirectory()) {
-							dir1 = getMenuJsonDir(children,prefixPath + File.separator + children.getName());
-							prefixPath = prefixPath + File.separator + children.getName();
-							path = prefixPath;
+							
+							if("".equals(prefixPath)) {
+								prefixPath = children.getName() + File.separator;
+								dir1 = getMenuJsonDir(children,prefixPath);
+							}else {
+								prefixPath = prefixPath  + children.getName() + File.separator;
+								dir1 = getMenuJsonDir(children,prefixPath);
+							}
+							
+							
 							
 						} else {
 							// 获取文件后缀
@@ -367,8 +378,8 @@ public class Mds2indexConfig {
 							String prefix = children.getName().substring(0,children.getName().lastIndexOf("."));
 							
 							if("md".equals(suffix)){
-								if("".equals(prefixPath)) {
-									path = prefixPath + File.separator + prefix + ".html";
+								if(!"".equals(prefixPath)) {
+									path = prefixPath  + prefix + ".html";
 								}else {
 									path =prefix + ".html";
 								}
@@ -386,6 +397,10 @@ public class Mds2indexConfig {
 					}
 
 				}
+				//对目录进行升序的自然排序
+				Collections.sort(listDir);
+				//去除文件标号
+				FilesUtils.cleanSortNumber(listDir);
 				dir.setChildren(listDir);
 			}
 
