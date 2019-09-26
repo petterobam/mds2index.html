@@ -1,5 +1,5 @@
 page:
-  title: 测试多个MarkDown文件生成单页面索引静态HTML文件
+  title: 测试Mardown生成html文件
   inc: 2018 petterObam
   useArgsPathForJar: true  # 如果设置该配置false，jar文件将完全按照配置文件执行，此时mdBasePath、tplPath、indexPath必填
   mdBasePath:    # markdown文件的目录，默认为 classpath:markdowns/ ，绝对路径

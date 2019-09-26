@@ -12,4 +12,6 @@ page:
     - 05_process.md 
     - 06_async_programming.md 
     - 07_example.md
+    - 08_job.md
+    - 09_pic.md
   indexPath:  # 生成的index文件输出路径，默认 classpath:output/index.html
