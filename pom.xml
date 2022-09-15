@@ -10,7 +10,7 @@
 
     <properties>
         <pegdown.version>1.6.0</pegdown.version>
-        <snakeyaml.version>1.26</snakeyaml.version>
+        <snakeyaml.version>1.31</snakeyaml.version>
         <junit.version>4.13.1</junit.version>
     </properties>
 
